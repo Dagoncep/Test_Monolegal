@@ -1,0 +1,9 @@
+**/bin
+**/obj
+**/node_modules
+.git
+.vs
+.claude
+frontend
+tests
+docker

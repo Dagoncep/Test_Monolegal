@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "Monolegal API",
+    "description": "Endpoints de la prueba técnica de Monolegal. Cambia la variable baseUrl si la API corre en otro puerto.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Obtener resumen de facturas",
+      "request": {
+        "method": "GET",
+        "description": "Devuelve todas las facturas con el nombre y el email de su cliente.",
+        "url": {
+          "raw": "{{baseUrl}}/api/facturas",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "facturas"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+              "",
+              "pm.test('Devuelve una lista de facturas', () => {",
+              "    const facturas = pm.response.json();",
+              "    pm.expect(facturas).to.be.an('array');",
+              "    facturas.forEach(f => pm.expect(f).to.include.keys('numero', 'clienteNombre', 'monto', 'estado'));",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Procesar recordatorios",
+      "request": {
+        "method": "POST",
+        "description": "Envía el correo a las facturas en primerrecordatorio o segundorecordatorio y actualiza su estado. Los correos se ven en http://localhost:8025 (Mailpit).",
+        "url": {
+          "raw": "{{baseUrl}}/api/recordatorios/procesar",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "recordatorios", "procesar"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+              "",
+              "pm.test('Los totales cuadran con el detalle', () => {",
+              "    const r = pm.response.json();",
+              "    pm.expect(r.totalProcesadas).to.eql(r.detalle.length);",
+              "    pm.expect(r.totalExitosas + r.totalFallidas).to.eql(r.totalProcesadas);",
+              "});",
+              "",
+              "pm.test('Cada factura exitosa avanza al estado correcto', () => {",
+              "    const siguiente = { primerrecordatorio: 'segundorecordatorio', segundorecordatorio: 'desactivado' };",
+              "    pm.response.json().detalle",
+              "        .filter(d => d.exitoso)",
+              "        .forEach(d => pm.expect(d.estadoNuevo).to.eql(siguiente[d.estadoAnterior]));",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
