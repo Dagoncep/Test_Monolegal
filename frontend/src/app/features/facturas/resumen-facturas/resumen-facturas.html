@@ -1,0 +1,15 @@
+<section class="resumen" aria-label="Resumen de facturas">
+  <article class="tarjeta tarjeta--total">
+    <span class="tarjeta__titulo">Total facturas</span>
+    <strong class="tarjeta__cantidad">{{ facturas().length }}</strong>
+    <span class="tarjeta__monto">{{ montoTotal() | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+  </article>
+
+  @for (total of totalesPorEstado(); track total.estado) {
+    <article class="tarjeta" [attr.data-estado]="total.estado">
+      <app-estado-badge [estado]="total.estado" />
+      <strong class="tarjeta__cantidad">{{ total.cantidad }}</strong>
+      <span class="tarjeta__monto">{{ total.monto | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+    </article>
+  }
+</section>

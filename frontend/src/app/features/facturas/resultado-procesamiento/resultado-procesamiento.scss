@@ -1,0 +1,52 @@
+.panel {
+  padding: 16px 20px;
+  background: var(--exito-fondo);
+  border: 1px solid var(--exito-borde);
+  border-radius: var(--radio);
+
+  &--con-errores {
+    background: var(--alerta-fondo);
+    border-color: var(--alerta-borde);
+  }
+
+  &__encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+
+    h2 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--texto-suave);
+    }
+  }
+
+  &__detalle {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
+
+.numero {
+  min-width: 80px;
+  font-weight: 600;
+}
+
+.error {
+  color: var(--peligro);
+}

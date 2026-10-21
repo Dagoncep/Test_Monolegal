@@ -1,0 +1,38 @@
+<div class="tabla-contenedor">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Factura</th>
+        <th scope="col">Cliente</th>
+        <th scope="col" class="numerico">Monto</th>
+        <th scope="col">Emisión</th>
+        <th scope="col">Vencimiento</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Última actualización</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (factura of facturas(); track factura.numero) {
+        <tr>
+          <td class="numero">{{ factura.numero }}</td>
+          <td>
+            <div class="cliente">{{ factura.clienteNombre }}</div>
+            @if (factura.clienteEmail) {
+              <div class="email">{{ factura.clienteEmail }}</div>
+            }
+          </td>
+          <td class="numerico">{{ factura.monto | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</td>
+          <!-- Las fechas de emisión y vencimiento son días calendario guardados en UTC -->
+          <td>{{ factura.fechaEmision | date: 'dd/MM/yyyy' : 'UTC' }}</td>
+          <td>{{ factura.fechaVencimiento | date: 'dd/MM/yyyy' : 'UTC' }}</td>
+          <td><app-estado-badge [estado]="factura.estado" /></td>
+          <td class="suave">{{ (factura.fechaActualizacion | date: 'dd/MM/yyyy HH:mm') ?? '—' }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7" class="vacio">No hay facturas que coincidan con los filtros.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

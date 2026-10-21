@@ -1,0 +1,100 @@
+:root {
+  --fondo: #f5f7fa;
+  --superficie: #ffffff;
+  --borde: #e2e8f0;
+  --texto: #1a2433;
+  --texto-suave: #5b6779;
+  --primario: #2563eb;
+  --primario-oscuro: #1e3a8a;
+  --peligro: #b42318;
+  --peligro-fondo: #fef3f2;
+  --peligro-borde: #fecdca;
+  --exito-fondo: #ecfdf3;
+  --exito-borde: #abefc6;
+  --alerta-fondo: #fffaeb;
+  --alerta-borde: #fedf89;
+  --radio: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  color: var(--texto);
+  background: var(--fondo);
+}
+
+// Colores por estado, compartidos por badges y tarjetas
+[data-estado='primerrecordatorio'] {
+  --color-estado: #b54708;
+  --color-estado-fondo: #fffaeb;
+}
+
+[data-estado='segundorecordatorio'] {
+  --color-estado: #c4320a;
+  --color-estado-fondo: #fff4ed;
+}
+
+[data-estado='desactivado'] {
+  --color-estado: #475467;
+  --color-estado-fondo: #f2f4f7;
+}
+
+[data-estado='pagada'] {
+  --color-estado: #067647;
+  --color-estado-fondo: #ecfdf3;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-estado);
+  background: var(--color-estado-fondo);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.boton {
+  padding: 9px 16px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--primario {
+    color: #fff;
+    background: var(--primario);
+    border-color: var(--primario);
+
+    &:hover:not(:disabled) {
+      background: var(--primario-oscuro);
+    }
+  }
+
+  &--texto {
+    padding: 6px 10px;
+    background: transparent;
+    border-color: transparent;
+    color: var(--texto-suave);
+
+    &:hover {
+      color: var(--texto);
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<header class="encabezado">
+  <div>
+    <h1>Facturas</h1>
+    <p class="subtitulo">Resumen de facturas y gestión de recordatorios de pago</p>
+  </div>
+  <button
+    type="button"
+    class="boton boton--primario"
+    (click)="procesarRecordatorios()"
+    [disabled]="procesando() || cargando()"
+  >
+    {{ procesando() ? 'Procesando…' : 'Procesar recordatorios' }}
+  </button>
+</header>
+
+@if (error(); as mensaje) {
+  <div class="alerta" role="alert">
+    <span>{{ mensaje }}</span>
+    <button type="button" class="boton" (click)="cargarFacturas()">Reintentar</button>
+  </div>
+}
+
+@if (resultado(); as r) {
+  <app-resultado-procesamiento [resultado]="r" (cerrar)="resultado.set(null)" />
+}
+
+@if (cargando() && facturas().length === 0) {
+  <p class="cargando">Cargando facturas…</p>
+} @else {
+  <app-resumen-facturas [facturas]="facturas()" />
+
+  <section class="filtros" aria-label="Filtros">
+    <label>
+      Cliente
+      <select [value]="filtroCliente()" (change)="cambiarFiltroCliente($event)">
+        <option value="">Todos los clientes</option>
+        @for (cliente of clientes(); track cliente.id) {
+          <option [value]="cliente.id">{{ cliente.nombre }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Estado
+      <select [value]="filtroEstado()" (change)="cambiarFiltroEstado($event)">
+        <option value="">Todos los estados</option>
+        @for (estado of estados; track estado) {
+          <option [value]="estado">{{ etiquetaEstado(estado) }}</option>
+        }
+      </select>
+    </label>
+
+    @if (hayFiltros()) {
+      <button type="button" class="boton boton--texto" (click)="limpiarFiltros()">Limpiar filtros</button>
+    }
+
+    <span class="contador">{{ facturasFiltradas().length }} de {{ facturas().length }} facturas</span>
+  </section>
+
+  <app-tabla-facturas [facturas]="facturasFiltradas()" />
+}
