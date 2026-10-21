@@ -1,0 +1,20 @@
+# .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+TestResults/
+coverage/
+
+# Angular / Node
+node_modules/
+dist/
+.angular/
+
+# Entorno local
+.env
+*.log
+
+# Configuración local de Claude Code
+.claude/
