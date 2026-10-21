@@ -16,5 +16,5 @@ dist/
 .env
 *.log
 
-# Configuración local de Claude Code
+# Configuración local de herramientas
 .claude/

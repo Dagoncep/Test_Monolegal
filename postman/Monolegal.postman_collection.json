@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Monolegal API",
-    "description": "Endpoints de la prueba técnica de Monolegal. Cambia la variable baseUrl si la API corre en otro puerto.",
+    "description": "Endpoints de la prueba técnica de Monolegal. La variable baseUrl define la dirección de la API (por defecto http://localhost:5080).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [

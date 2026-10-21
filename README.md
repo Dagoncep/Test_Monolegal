@@ -50,7 +50,7 @@ docker compose up -d --build
 | Correos enviados (Mailpit) | http://localhost:8025 |
 | MongoDB | `mongodb://admin:admin123@localhost:27017` |
 
-Para probarlo: abre el dashboard, pulsa **Procesar recordatorios**, confirma y revisa los correos en Mailpit.
+Para probarlo se abre el dashboard, se pulsa **Procesar recordatorios**, se confirma la acción y se revisan los correos en Mailpit.
 
 Para volver a los datos iniciales:
 
@@ -70,7 +70,7 @@ Requisitos: .NET SDK 10 (incluido en Visual Studio 2026), Node.js 22 y Docker De
    ```bash
    docker compose up -d mongo mailpit
    ```
-2. API: abrir `Monolegal.sln` en Visual Studio, elegir `Monolegal.Api` como proyecto de inicio y ejecutar con el perfil `http` (abre Swagger en http://localhost:5080/swagger). Desde la terminal:
+2. API: abrir `Monolegal.sln` en Visual Studio, elegir `Monolegal.Api` como proyecto de inicio y ejecutar con el perfil `http`, que abre Swagger en http://localhost:5080/swagger. Desde la terminal:
    ```bash
    dotnet run --project src/Monolegal.Api --launch-profile http
    ```
@@ -81,7 +81,7 @@ Requisitos: .NET SDK 10 (incluido en Visual Studio 2026), Node.js 22 y Docker De
    npm start
    ```
 
-> Usa `npm ci` (no `npm install`): con npm 10 `npm install` falla por un error interno de npm al resolver dependencias; `npm ci` instala desde el `package-lock.json` sin ese problema.
+`npm ci` instala exactamente las versiones registradas en `package-lock.json`. Con npm 10, `npm install` puede fallar en este proyecto por un error interno de npm al resolver las dependencias de Angular.
 
 ## API
 
@@ -142,9 +142,9 @@ Por defecto los correos van a Mailpit, que los captura sin enviarlos de verdad. 
   "Host": "smtp.gmail.com",
   "Puerto": 587,
   "UsarTls": true,
-  "Usuario": "tu-cuenta@gmail.com",
+  "Usuario": "cuenta@gmail.com",
   "Password": "<contraseña de aplicación>",
-  "RemitenteEmail": "tu-cuenta@gmail.com",
+  "RemitenteEmail": "cuenta@gmail.com",
   "RemitenteNombre": "Cartera"
 }
 ```
